@@ -55,35 +55,38 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: appcolor.backgroundColor,
         appBar: ReusableAppBar(title: "App name"),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              SearchBox(cntlr: searchController),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  itemCount: books.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.65,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, index) {
-                    return BookBuilder(
-                      imageUrl: books[index]['image']!,
-                      bookName: books[index]['title']!,
-                      authorName: books[index]['author']!,
-                      price: books[index]['price']!,
-                    );
-                  },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-            ],
+                SearchBox(cntlr: searchController),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    itemCount: books.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.65,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5,
+                    ),
+                    itemBuilder: (context, index) {
+                      return BookBuilder(
+                        imageUrl: books[index]['image']!,
+                        bookName: books[index]['title']!,
+                        authorName: books[index]['author']!,
+                        price: books[index]['price']!,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
 

@@ -19,11 +19,11 @@ class BookBuilder extends StatelessWidget {
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(2),
+        borderRadius: BorderRadius.circular(1),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            blurRadius: 5,
+            color: Colors.grey.withOpacity(0.1),
+            blurRadius: 2,
             spreadRadius: 2,
           ),
         ],
