@@ -50,4 +50,32 @@ class Fontstyles{
       fontWeight: FontWeight.w600
     );
   }
+
+  static TextStyle HeadlineStyle2(BuildContext context){
+
+    return TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 18,
+      fontWeight: FontWeight.w700
+    );
+  }
+
+  static TextStyle BoldandSmallStyle(BuildContext context){
+
+    return TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 15,
+      fontWeight: FontWeight.w900
+    );
+  }
+
+  static TextStyle ButtonText1(BuildContext context){
+
+    return TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 15,
+      color: Colors.white,
+      fontWeight: FontWeight.w600
+    );
+  }
 }

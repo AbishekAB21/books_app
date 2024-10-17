@@ -59,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               bookName: books[index]['title']!,
                               authorName: books[index]['author']!,
                               price: books[index]['price']!,
+                              desc: books[index]['description']!,
                             );
                           },
                         ),

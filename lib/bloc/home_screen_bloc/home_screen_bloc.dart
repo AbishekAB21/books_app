@@ -12,7 +12,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       emit(HomeScreenLoading());
 
       try {
-        final String apiKey = 'AIzaSyCNX90qklU7TCuozS-LoLmX4OwvSPyg9Bs'; // Replace with your API key
+        final String apiKey = 'AIzaSyCNX90qklU7TCuozS-LoLmX4OwvSPyg9Bs';
         final String url = 'https://www.googleapis.com/books/v1/volumes?q=book&maxResults=40&key=$apiKey';
 
 
@@ -30,6 +30,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
                   : 'Unknown Author',
               'price': '₹399',
               'image': item['volumeInfo']['imageLinks']?['thumbnail'] ?? 'default_image_url',
+              'description': item['volumeInfo']['description'] ?? 'No description available',
             });
           }
           emit(HomeScreenLoaded(books));
@@ -45,7 +46,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   emit(HomeScreenLoading());
 
   try {
-    final String apiKey = 'AIzaSyCNX90qklU7TCuozS-LoLmX4OwvSPyg9Bs'; // Replace with your API key
+    final String apiKey = 'AIzaSyCNX90qklU7TCuozS-LoLmX4OwvSPyg9Bs'; 
     final String url = 'https://www.googleapis.com/books/v1/volumes?q=${event.query}&maxResults=40&key=$apiKey';
 
     final response = await http.get(Uri.parse(url));
@@ -62,6 +63,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
               : 'Unknown Author',
           'price': '₹399',
           'image': item['volumeInfo']['imageLinks']?['thumbnail'] ?? 'default_image_url',
+          'description': item['volumeInfo']['description'] ?? 'No description available',
         });
       }
       emit(HomeScreenLoaded(books));
