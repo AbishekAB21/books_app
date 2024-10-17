@@ -1,4 +1,10 @@
 part of 'authors_bloc.dart';
 
 @immutable
-sealed class AuthorsEvent {}
+abstract class AuthorsEvent {}
+
+class FetchAuthorsEvent extends AuthorsEvent {
+  final String query;
+
+  FetchAuthorsEvent(this.query);
+}

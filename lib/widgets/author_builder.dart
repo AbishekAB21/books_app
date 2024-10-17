@@ -3,7 +3,10 @@ import 'package:books_app/utils/fontstyles.dart';
 import 'package:flutter/material.dart';
 
 class AuthorBuilder extends StatelessWidget {
-  const AuthorBuilder({super.key});
+  final String authorName;
+  final String description;
+
+  const AuthorBuilder({super.key, required this.authorName, required this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +33,14 @@ class AuthorBuilder extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "James Clear",
+                    authorName,
                     style: Fontstyles.ContentTextStyle(context),
                   ),
                   SizedBox(
                     height: 5,
                   ),
                   Text(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                    description,
                     overflow: TextOverflow.ellipsis,
                     style: Fontstyles.ContentTextStyle4(context),
                     maxLines: 2,

@@ -70,12 +70,31 @@ class Fontstyles{
     );
   }
 
+  static TextStyle HeadlineStyle3(BuildContext context){
+
+    return TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 15,
+      fontWeight: FontWeight.w600
+    );
+  }
+
   static TextStyle BoldandSmallStyle(BuildContext context){
 
     return TextStyle(
       fontFamily: 'Inter',
       fontSize: 15,
       fontWeight: FontWeight.w900
+    );
+  }
+
+  static TextStyle ButtonText2(BuildContext context){
+
+    return TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 15,
+      color: Colors.white,
+      fontWeight: FontWeight.bold
     );
   }
 
