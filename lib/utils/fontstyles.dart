@@ -19,7 +19,26 @@ class Fontstyles{
     return TextStyle(
       fontFamily: 'Inter',
       fontSize: 14,
-      fontWeight: FontWeight.w300
+      fontWeight: FontWeight.w700
+    );
+  }
+
+   static TextStyle ContentTextStyle2(BuildContext context){
+
+    return TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 12,
+      fontWeight: FontWeight.w700
+    );
+  }
+
+   static TextStyle ContentTextStyle3(BuildContext context){
+
+    return TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 12,
+      color: Colors.grey.shade400,
+      fontWeight: FontWeight.w400
     );
   }
 
