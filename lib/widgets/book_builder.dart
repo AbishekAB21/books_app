@@ -49,7 +49,8 @@ class BookBuilder extends StatelessWidget {
               child: Text(
                 bookName,
                 style: Fontstyles.ContentTextStyle(context),
-                overflow: TextOverflow.clip,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               )),
           Align(
               alignment: AlignmentDirectional.topStart,

@@ -1,65 +1,26 @@
-import 'dart:convert';
+import 'package:books_app/bloc/home_screen_bloc/home_screen_bloc.dart';
+import 'package:books_app/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:books_app/utils/app_theme.dart';
 import 'package:books_app/widgets/book_builder.dart';
 import 'package:books_app/widgets/reusable_appbar.dart';
 import 'package:books_app/widgets/search_box.dart';
 
-// Function to fetch books from Google Books API
-Future<List<Map<String, String>>> fetchRandomBooks() async {
-  final String apiKey = 'AIzaSyCNX90qklU7TCuozS-LoLmX4OwvSPyg9Bs'; // Replace with your API key
-  final String url = 'https://www.googleapis.com/books/v1/volumes?q=book&maxResults=10&key=$apiKey';
-  
-  final response = await http.get(Uri.parse(url));
-  
-  if (response.statusCode == 200) {
-    final data = json.decode(response.body);
-    final List<Map<String, String>> books = [];
-    
-    for (var item in data['items']) {
-      books.add({
-        'title': item['volumeInfo']['title'] ?? 'No Title',
-        'author': (item['volumeInfo']['authors'] != null)
-            ? item['volumeInfo']['authors'].join(', ')
-            : 'Unknown Author',
-        'price': '₹399', // Add logic for price if available
-        'image': item['volumeInfo']['imageLinks']?['thumbnail'] ?? 'default_image_url'
-      });
-    }
-    
-    return books;
-  } else {
-    throw Exception('Failed to load books');
-  }
-}
-
-
+// Home Screen
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Map<String, String>> books = [];
-  bool isLoading = true;
   final TextEditingController searchController = TextEditingController();
 
   @override
- void initState() {
-  super.initState();
-  fetchRandomBooks().then((bookList) {
-    setState(() {
-      books = bookList;
-      isLoading = false;
-    });
-  }).catchError((error) {
-    print(error);
-    setState(() {
-      isLoading = false;
-    });
-  });
-}
+  void initState() {
+    super.initState();
+    context.read<HomeScreenBloc>().add(FetchBooksEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         backgroundColor: appcolor.backgroundColor,
         appBar: ReusableAppBar(title: "App name"),
-        body: isLoading
-            ? Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
+        body: BlocBuilder<HomeScreenBloc, HomeScreenState>(
+          builder: (context, state) {
+            if (state is HomeScreenLoading) {
+              return buildShimmerEffect(); // Show shimmer effect instead of loading indicator
+            } else if (state is HomeScreenLoaded) {
+              final books = state.books;
+              return SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Column(
@@ -101,7 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-              ),
+              );
+            } else if (state is HomeScreenError) {
+              return Center(child: Text(state.message));
+            }
+
+            return Center(child: Text('No books found.'));
+          },
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             showDialog(
@@ -119,10 +91,16 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         bottomNavigationBar: BottomNavigationBar(items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Authors"),
+            icon: Icon(Icons.home_rounded), 
+            label: "Home"
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person), 
+            label: "Authors"
+          ),
         ]),
       ),
     );
   }
+
 }
