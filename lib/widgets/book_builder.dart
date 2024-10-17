@@ -35,7 +35,7 @@ class BookBuilder extends StatelessWidget {
           Expanded(
             child: ClipRRect(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(2)),
-                child: Image.asset(
+                child: Image.network(
                   imageUrl,
                   fit: BoxFit.contain,
                   height: 100,
