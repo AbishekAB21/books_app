@@ -42,6 +42,16 @@ class Fontstyles{
     );
   }
 
+   static TextStyle ContentTextStyle4(BuildContext context){
+
+    return TextStyle(
+      fontFamily: 'Inter',
+      fontSize: 12,
+      color: Colors.grey.shade600,
+      fontWeight: FontWeight.w600
+    );
+  }
+
   static TextStyle HeadlineStyle1(BuildContext context){
 
     return TextStyle(
