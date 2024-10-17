@@ -26,7 +26,7 @@ class AppDefaultColor extends AppColor {
   AppDefaultColor()
       : super(
             backgroundColor: Colors.grey.shade50,
-            primaryColor: Colors.blueGrey.shade800,
+            primaryColor: Colors.orange,
             borderColor: Colors.grey.shade300,
             borderColor2: Colors.white,
             secondaryColor: Colors.grey,

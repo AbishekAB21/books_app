@@ -16,11 +16,37 @@ class HomeScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 10,),
-              SearchBox(cntlr: searchController,)
+              SizedBox(
+                height: 10,
+              ),
+              SearchBox(
+                cntlr: searchController,
+              ),
+
+    // Display Books
+
             ],
           ),
-        )
+        ),
+
+    // Add Books
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            showDialog(context: context, builder: (context) => AlertDialog(),);
+          },
+          backgroundColor: appcolor.primaryColor,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          child: Icon(
+            Icons.add_rounded,
+            size: 28,
+            color: appcolor.backgroundColor,
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Authors"),
+        ]),
       ),
     );
   }
