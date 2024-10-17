@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: BlocBuilder<HomeScreenBloc, HomeScreenState>(
           builder: (context, state) {
             if (state is HomeScreenLoading) {
-              return buildShimmerEffect(); // Show shimmer effect instead of loading indicator
+              return buildShimmerEffect(); // Showing Shimmer effect
             } else if (state is HomeScreenLoaded) {
               final books = state.books;
               return SingleChildScrollView(
@@ -74,21 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return Center(child: Text('No books found.'));
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(),
-            );
-          },
-          backgroundColor: appcolor.primaryColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          child: Icon(
-            Icons.add_rounded,
-            size: 28,
-            color: appcolor.backgroundColor,
-          ),
-        ),
+        
         bottomNavigationBar: BottomNavigationBar(items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_rounded), 
