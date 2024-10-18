@@ -11,7 +11,7 @@ that lists out various authors and also has an option to add new users if needed
 # Technologies used
 
 - ## State management : Bloc 
-- ## API : Google Books API, http
+- ## API : ELT Global API, http
 - ## Route management : Go_router
 - ## UI Optimization : Shimmer, Google fonts
 
