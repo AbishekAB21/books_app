@@ -29,7 +29,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
       body: BlocBuilder<AuthorsBloc, AuthorsState>(
         builder: (context, state) {
           if (state is AuthorsLoading) {
-            return ShimmerEffect(); // Use the ShimmerEffect widget
+            return ShimmerEffect(); 
           } else if (state is AuthorsLoaded) {
             return ListView.separated(
               physics: BouncingScrollPhysics(),

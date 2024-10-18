@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: BlocBuilder<HomeScreenBloc, HomeScreenState>(
           builder: (context, state) {
             if (state is HomeScreenLoading) {
-              return buildShimmerEffect(); // Showing Shimmer effect
+              return buildShimmerEffect(); // Shimmer
             } else if (state is HomeScreenLoaded) {
               final books = state.books;
               return SingleChildScrollView(

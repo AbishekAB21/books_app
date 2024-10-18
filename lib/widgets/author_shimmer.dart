@@ -9,7 +9,7 @@ class ShimmerEffect extends StatelessWidget {
       highlightColor: Colors.grey[100]!,
       child: ListView.separated(
         physics: BouncingScrollPhysics(),
-        itemCount: 12, // Number of shimmer items
+        itemCount: 12, 
         separatorBuilder: (context, index) => SizedBox(height: 5),
         itemBuilder: (context, index) {
           return Container(
@@ -18,7 +18,7 @@ class ShimmerEffect extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
-            height: 60, // Adjust the height as needed
+            height: 60, 
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(

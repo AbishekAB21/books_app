@@ -7,7 +7,7 @@ Widget buildShimmerEffect() {
       child: GridView.builder(
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
-        itemCount: 10, // Show 10 shimmer items
+        itemCount: 10, 
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 0.65,
