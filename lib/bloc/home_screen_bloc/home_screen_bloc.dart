@@ -61,7 +61,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
           'author': (item['volumeInfo']['authors'] != null)
               ? item['volumeInfo']['authors'].join(', ')
               : 'Unknown Author',
-          'price': '₹399',
+          'price': '₹399', // Google Books API does not provide book prices
           'image': item['volumeInfo']['imageLinks']?['thumbnail'] ?? 'default_image_url',
           'description': item['volumeInfo']['description'] ?? 'No description available',
         });
