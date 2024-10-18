@@ -1,16 +1,18 @@
 # books_app
 
-A new Flutter project.
+This is a machine test that was assigned to me by EIT Global
 
-## Getting Started
+## About the app
 
-This project is a starting point for a Flutter application.
+This is a basic books appliction built using Flutter/Dart. The data being displayed has been fetched from Google's Books API. The Home screen lists all the available books.
+When you click on a particular book, it takes you to a Detail Screen that gives you a more clear idea about the book and an option to buy it. There is also an Authors Screen,
+that lists out various authors and also has an option to add new users if needed.
 
-A few resources to get you started if this is your first Flutter project:
+## Technologies used
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- # State management : Bloc 
+- # API : Google Books API, http
+- # Route management : Go_router
+- # UI Optimization : Shimmer, Google fonts
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The link to the apk of this application will be attached with the mail.
