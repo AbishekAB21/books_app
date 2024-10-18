@@ -2,6 +2,7 @@ import 'package:books_app/screens/authors_screen.dart';
 import 'package:books_app/screens/book_detail_screen.dart';
 import 'package:books_app/screens/home.dart';
 import 'package:books_app/screens/splash-screen.dart';
+import 'package:books_app/widgets/bottom_nav.dart';
 import 'package:go_router/go_router.dart';
 
 class MyAppRouter {
@@ -41,6 +42,14 @@ class MyAppRouter {
         path: '/authors',
         builder: (context, state) {
           return AuthorsScreen();
+        },
+      ),
+
+      GoRoute(
+        name: '/bottomNav',
+        path: '/bottomNav',
+        builder: (context, state) {
+          return MainScreen();
         },
       ),
     ],

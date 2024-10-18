@@ -76,16 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
         
-        bottomNavigationBar: BottomNavigationBar(items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded), 
-            label: "Home"
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person), 
-            label: "Authors"
-          ),
-        ]),
       ),
     );
   }

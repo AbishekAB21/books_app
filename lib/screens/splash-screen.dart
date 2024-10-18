@@ -59,5 +59,5 @@ class _SplashScreenState extends State<SplashScreen> {
 Future<void> goHome(BuildContext context) async{
 
   await Future.delayed(Duration(seconds: 3));
-  context.goNamed('/home');
+  context.goNamed('/bottomNav');
 }

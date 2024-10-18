@@ -54,7 +54,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: appcolor.primaryColor,
+          backgroundColor: appcolor.borderColor3,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           child: Icon(

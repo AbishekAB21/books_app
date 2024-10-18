@@ -10,6 +10,7 @@ class AuthorBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String firstLetter = authorName[0];
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
@@ -22,8 +23,9 @@ class AuthorBuilder extends StatelessWidget {
         child: Row(
           children: [
             CircleAvatar(
-              backgroundColor: appcolor.secondaryColor,
-              backgroundImage: AssetImage("assets/empty-profile-pic.png"),
+              backgroundColor: appcolor.primaryColor,
+             // backgroundImage: AssetImage("assets/empty-profile-pic.png"),
+             child: Text(firstLetter, style: Fontstyles.ButtonText1(context),),
             ),
             SizedBox(
               width: 15,
