@@ -1,4 +1,5 @@
 import 'package:books_app/bloc/authors_screen_bloc/authors_bloc.dart';
+import 'package:books_app/widgets/author_shimmer.dart';
 import 'package:books_app/widgets/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +18,6 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
   @override
   void initState() {
     super.initState();
-
     BlocProvider.of<AuthorsBloc>(context).add(FetchAuthorsEvent('Flutter'));
   }
 
@@ -29,14 +29,12 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
       body: BlocBuilder<AuthorsBloc, AuthorsState>(
         builder: (context, state) {
           if (state is AuthorsLoading) {
-            return Center(child: CircularProgressIndicator());
+            return ShimmerEffect(); // Use the ShimmerEffect widget
           } else if (state is AuthorsLoaded) {
             return ListView.separated(
               physics: BouncingScrollPhysics(),
               itemCount: state.authors.length,
-              separatorBuilder: (context, index) => SizedBox(
-                height: 5,
-              ),
+              separatorBuilder: (context, index) => SizedBox(height: 5),
               itemBuilder: (context, index) {
                 final author = state.authors[index];
                 return AuthorBuilder(
@@ -54,22 +52,22 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: appcolor.borderColor3,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          child: Icon(
-            Icons.add_rounded,
-            size: 30,
-            color: appcolor.backgroundColor,
-          ),
-          onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              builder: (context) {
-                return BottomSheetWidget();
-              },
-            );
-          }),
+        backgroundColor: appcolor.borderColor3,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        child: Icon(
+          Icons.add_rounded,
+          size: 30,
+          color: appcolor.backgroundColor,
+        ),
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return BottomSheetWidget();
+            },
+          );
+        },
+      ),
     );
   }
 }

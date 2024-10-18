@@ -1,5 +1,5 @@
 import 'package:books_app/bloc/home_screen_bloc/home_screen_bloc.dart';
-import 'package:books_app/widgets/shimmer.dart';
+import 'package:books_app/widgets/home_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:books_app/utils/app_theme.dart';
