@@ -2,16 +2,16 @@ import 'package:books_app/models/model.dart';
 import 'package:books_app/screens/book_detail_screen.dart';
 import 'package:books_app/utils/fontstyles.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // Import for currency formatting
+import 'package:intl/intl.dart'; 
 
-// BookBuilder Widget
+
 class BookBuilder extends StatelessWidget {
-  final Book book; // Single Book parameter
+  final Book book;
 
   const BookBuilder({
     Key? key,
     required this.book,
-  }) : super(key: key); // Use const constructor
+  }) : super(key: key); 
 
   @override
   Widget build(BuildContext context) {
@@ -24,23 +24,23 @@ class BookBuilder extends StatelessWidget {
               imageUrl: book.imageUrl,
               bookName: book.title,
               authorName: book.author,
-              price: NumberFormat.currency(symbol: '₹').format(book.price), // Format price
+              price: NumberFormat.currency(symbol: '₹').format(book.price),
               bookdesc: book.description,
             ),
           ),
         );
       },
       child: Container(
-        padding: const EdgeInsets.all(8), // Increase padding for better layout
+        padding: const EdgeInsets.all(8), 
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(8), // More rounded corners
+          borderRadius: BorderRadius.circular(2), 
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.2),
               blurRadius: 4,
               spreadRadius: 2,
-              offset: Offset(0, 2), // Slight offset for depth
+              offset: Offset(0, 2), 
             ),
           ],
         ),
@@ -48,22 +48,22 @@ class BookBuilder extends StatelessWidget {
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(2)),
                 child: Image.network(
                   book.imageUrl,
-                  fit: BoxFit.cover, // Change to cover for better image filling
+                  fit: BoxFit.cover, 
                   height: 150,
                   width: 150,
                   errorBuilder: (context, error, stackTrace) {
                     return Image.asset(
-                      "assets/no-pic.png", // Placeholder image
+                      "assets/no-pic.png", 
                       fit: BoxFit.cover,
                     );
                   },
                 ),
               ),
             ),
-            SizedBox(height: 8), // Space between image and text
+            SizedBox(height: 8),
             Align(
               alignment: AlignmentDirectional.topStart,
               child: Text(
@@ -73,32 +73,24 @@ class BookBuilder extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
+            // Align(
+            //   alignment: AlignmentDirectional.topStart,
+            //   child: Text(
+            //     book.author,
+            //     style: Fontstyles.ContentTextStyle3(context),
+            //     overflow: TextOverflow.ellipsis,
+            //   ),
+            // ),
             Align(
               alignment: AlignmentDirectional.topStart,
               child: Text(
-                book.author,
-                style: Fontstyles.ContentTextStyle3(context),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            Align(
-              alignment: AlignmentDirectional.topStart,
-              child: Text(
-                NumberFormat.currency(symbol: '₹').format(book.price), // Format price
+                NumberFormat.currency(symbol: '₹').format(book.price), 
                 style: Fontstyles.ContentTextStyle2(context),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            SizedBox(height: 4), // Space before description
-            Align(
-              alignment: AlignmentDirectional.topStart,
-              child: Text(
-                book.description,
-                style: Fontstyles.ContentTextStyle(context).copyWith(fontSize: 12), // Smaller size for description
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
+            SizedBox(height: 4), 
+            
           ],
         ),
       ),

@@ -32,12 +32,12 @@ class AuthorsBloc extends Bloc<AuthorsEvent, AuthorsState> {
       }
     });
 
-    // Add a handler for the DeleteAuthorEvent
+    
     on<DeleteAuthorEvent>((event, emit) async {
       try {
         emit(AuthorsLoading());
-        await booksRepository.deleteAuthor(event.authorId); // Call delete method
-        authors = await booksRepository.fetchAuthors(); // Fetch updated list
+        await booksRepository.deleteAuthor(event.authorId); 
+        authors = await booksRepository.fetchAuthors(); 
         emit(AuthorsLoaded(authors));
       } catch (e) {
         emit(AuthorsError("Failed to delete author"));

@@ -13,7 +13,7 @@ class AddAuthorEvent extends AuthorsEvent {
   AddAuthorEvent(this.name, this.description, this.dob);
 }
 
-// Add this event for deleting an author
+
 class DeleteAuthorEvent extends AuthorsEvent {
   final String authorId;
 

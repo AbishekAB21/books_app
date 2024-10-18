@@ -31,12 +31,12 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
     return BlocListener<AuthorsBloc, AuthorsState>(
       listener: (context, state) {
         if (state is AuthorsError) {
-          // Show error message if there's an error
+          
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
           );
         } else if (state is AuthorsLoaded) {
-          // Successfully added an author and the list is updated
+          
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Author added successfully!")),
@@ -86,10 +86,10 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                         final dob = dobController.text;
 
                         if (name.isNotEmpty && description.isNotEmpty && dob.isNotEmpty) {
-                          // Add the author
+                          
                           BlocProvider.of<AuthorsBloc>(context).add(AddAuthorEvent(name, description, dob));
                         } else {
-                          // Show an error message if fields are empty
+                          
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text("Please fill in all fields.")),
                           );

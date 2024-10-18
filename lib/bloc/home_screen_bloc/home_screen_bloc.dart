@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:books_app/api/books_api_request.dart';
 import 'package:books_app/bloc/home_screen_bloc/home_screen_event.dart';
 import 'package:books_app/bloc/home_screen_bloc/home_screen_state.dart';
-import 'package:books_app/models/model.dart'; // Import the correct Book model
+import 'package:books_app/models/model.dart'; 
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   final BooksApi booksApi;
@@ -11,7 +11,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     on<FetchBooksEvent>((event, emit) async {
       emit(HomeScreenLoading());
       try {
-        // Call fetchBooks without passing the limit
+        
         final books = await booksApi.fetchBooks(); 
         emit(HomeScreenLoaded(books));
       } catch (e) {
@@ -32,7 +32,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   }
 
   Future<List<Book>> _searchBooks(String query) async {
-    final allBooks = await booksApi.fetchBooks(); // Fetch all books
+    final allBooks = await booksApi.fetchBooks(); 
     return allBooks.where((book) => book.title.toLowerCase().contains(query.toLowerCase())).toList();
   }
 }

@@ -1,12 +1,12 @@
-import 'package:intl/intl.dart'; // Import for currency formatting
+import 'package:intl/intl.dart'; 
 
-// Book Model
+
 class Book {
-  final String id; // Add id for consistency with the API
+  final String id; 
   final String imageUrl;
   final String title;
   final String author;
-  final double price; // Use double for price
+  final double price; 
   final String description;
 
   Book({
@@ -21,9 +21,9 @@ class Book {
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
       id: json['id'],
-      imageUrl: json['coverPictureURL'], // Adjust to the correct key
+      imageUrl: json['coverPictureURL'], 
       title: json['title'],
-      author: json['authorId'], // Adjust if author is defined differently in the response
+      author: json['authorId'],
       price: (json['price'] as num).toDouble(),
       description: json['description'],
     );

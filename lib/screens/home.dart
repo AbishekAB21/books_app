@@ -5,7 +5,7 @@ import 'package:books_app/widgets/home_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:books_app/utils/app_theme.dart';
-import 'package:books_app/widgets/book_builder.dart'; // Ensure this imports the correct BookBuilder
+import 'package:books_app/widgets/book_builder.dart'; 
 import 'package:books_app/widgets/reusable_appbar.dart';
 import 'package:books_app/widgets/search_box.dart';
 
@@ -32,9 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
         body: BlocBuilder<HomeScreenBloc, HomeScreenState>(
           builder: (context, state) {
             if (state is HomeScreenLoading) {
-              return buildShimmerEffect(); // Show shimmer effect while loading
+              return buildShimmerEffect(); 
             } else if (state is HomeScreenLoaded) {
-              final books = state.books; // List of books
+              final books = state.books;
               return SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         child: GridView.builder(
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(), // Prevent scrolling in GridView
+                          physics: NeverScrollableScrollPhysics(), 
                           itemCount: books.length,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
@@ -55,10 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisSpacing: 5,
                           ),
                           itemBuilder: (context, index) {
-                            final book = books[index]; // Get the Book object directly
+                            final book = books[index]; 
 
                             return BookBuilder(
-                              book: book, // Pass the Book instance
+                              book: book, 
                             );
                           },
                         ),
@@ -68,10 +68,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               );
             } else if (state is HomeScreenError) {
-              return Center(child: Text(state.message)); // Display error message
+              return Center(child: Text(state.message));
             }
 
-            return Center(child: Text('No books found.')); // Default case
+            return Center(child: Text('No books found.')); 
           },
         ),
       ),

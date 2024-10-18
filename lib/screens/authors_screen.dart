@@ -22,7 +22,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
   }
 
   void deleteAuthor(String authorId) {
-    // Trigger delete author event in the AuthorsBloc
+   
     BlocProvider.of<AuthorsBloc>(context).add(DeleteAuthorEvent(authorId));
   }
 
@@ -43,10 +43,10 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
               itemBuilder: (context, index) {
                 final author = state.authors[index];
                 return AuthorBuilder(
-                  authorId: author['id'].toString(), // Pass author ID
+                  authorId: author['id'].toString(), 
                   authorName: author['name'] ?? 'Unknown Author',
                   description: author['biography'] ?? 'No biography available',
-                  onDelete: deleteAuthor, // Pass delete function
+                  onDelete: deleteAuthor, 
                 );
               },
             );
@@ -72,7 +72,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
               return BottomSheetWidget();
             },
           ).whenComplete(() {
-            // Fetch the authors again after adding a new one
+            
             BlocProvider.of<AuthorsBloc>(context).add(FetchAuthorsEvent());
           });
         },
