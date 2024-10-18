@@ -1,104 +1,104 @@
+import 'package:books_app/models/model.dart';
 import 'package:books_app/screens/book_detail_screen.dart';
 import 'package:books_app/utils/fontstyles.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart'; // Import for currency formatting
 
+// BookBuilder Widget
 class BookBuilder extends StatelessWidget {
-  final String imageUrl;
-  final String bookName;
-  final String authorName;
-  final String price;
-  final String desc;
-  BookBuilder({
-    super.key,
-    required this.imageUrl,
-    required this.bookName,
-    required this.authorName,
-    required this.price,
-    required this.desc,
-  });
+  final Book book; // Single Book parameter
+
+  const BookBuilder({
+    Key? key,
+    required this.book,
+  }) : super(key: key); // Use const constructor
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //  context.go("/details", extra: {
-        //     'imageUrl': imageUrl,
-        //     'bookName': bookName,
-        //     'authorName': authorName,
-        //     'price': price,
-        //     'bookdesc' : desc,
-        //   });
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DetailsScreen(
-                imageUrl: imageUrl,
-                bookName: bookName,
-                authorName: authorName,
-                price: price,
-                bookdesc: desc,
-              ),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailsScreen(
+              imageUrl: book.imageUrl,
+              bookName: book.title,
+              authorName: book.author,
+              price: NumberFormat.currency(symbol: '₹').format(book.price), // Format price
+              bookdesc: book.description,
+            ),
+          ),
+        );
       },
       child: Container(
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(8), // Increase padding for better layout
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(1),
+          borderRadius: BorderRadius.circular(8), // More rounded corners
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              blurRadius: 2,
+              color: Colors.grey.withOpacity(0.2),
+              blurRadius: 4,
               spreadRadius: 2,
+              offset: Offset(0, 2), // Slight offset for depth
             ),
           ],
         ),
         child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Book Image
             Expanded(
               child: ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(2)),
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.contain,
-                    height: 100,
-                    width: 150,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Image.asset(
-                        "assets/no-pic.png",
-                        height: 100,
-                        width: 100,
-                        fit: BoxFit.contain,
-                      );
-                    },
-                  )),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
+                child: Image.network(
+                  book.imageUrl,
+                  fit: BoxFit.cover, // Change to cover for better image filling
+                  height: 150,
+                  width: 150,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      "assets/no-pic.png", // Placeholder image
+                      fit: BoxFit.cover,
+                    );
+                  },
+                ),
+              ),
             ),
-
-            // Book Details
+            SizedBox(height: 8), // Space between image and text
             Align(
-                alignment: AlignmentDirectional.topStart,
-                child: Text(
-                  bookName,
-                  style: Fontstyles.ContentTextStyle(context),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                )),
+              alignment: AlignmentDirectional.topStart,
+              child: Text(
+                book.title,
+                style: Fontstyles.ContentTextStyle(context),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
             Align(
-                alignment: AlignmentDirectional.topStart,
-                child: Text(
-                  authorName,
-                  style: Fontstyles.ContentTextStyle3(context),
-                  overflow: TextOverflow.ellipsis,
-                )),
+              alignment: AlignmentDirectional.topStart,
+              child: Text(
+                book.author,
+                style: Fontstyles.ContentTextStyle3(context),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
             Align(
-                alignment: AlignmentDirectional.topStart,
-                child: Text(
-                  price,
-                  style: Fontstyles.ContentTextStyle2(context),
-                  overflow: TextOverflow.ellipsis,
-                )),
+              alignment: AlignmentDirectional.topStart,
+              child: Text(
+                NumberFormat.currency(symbol: '₹').format(book.price), // Format price
+                style: Fontstyles.ContentTextStyle2(context),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            SizedBox(height: 4), // Space before description
+            Align(
+              alignment: AlignmentDirectional.topStart,
+              child: Text(
+                book.description,
+                style: Fontstyles.ContentTextStyle(context).copyWith(fontSize: 12), // Smaller size for description
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
         ),
       ),

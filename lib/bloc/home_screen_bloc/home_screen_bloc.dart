@@ -1,79 +1,38 @@
-import 'dart:convert';
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-import 'package:http/http.dart' as http;
-
-part 'home_screen_event.dart';
-part 'home_screen_state.dart';
+import 'package:books_app/api/books_api_request.dart';
+import 'package:books_app/bloc/home_screen_bloc/home_screen_event.dart';
+import 'package:books_app/bloc/home_screen_bloc/home_screen_state.dart';
+import 'package:books_app/models/model.dart'; // Import the correct Book model
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
-  HomeScreenBloc() : super(HomeScreenInitial()) {
+  final BooksApi booksApi;
+
+  HomeScreenBloc(this.booksApi) : super(HomeScreenInitial()) {
     on<FetchBooksEvent>((event, emit) async {
       emit(HomeScreenLoading());
-
       try {
-        final String apiKey = 'AIzaSyCNX90qklU7TCuozS-LoLmX4OwvSPyg9Bs';
-        final String url = 'https://www.googleapis.com/books/v1/volumes?q=book&maxResults=40&key=$apiKey';
-
-
-        final response = await http.get(Uri.parse(url));
-
-        if (response.statusCode == 200) {
-          final data = json.decode(response.body);
-          final List<Map<String, String>> books = [];
-
-          for (var item in data['items']) {
-            books.add({
-              'title': item['volumeInfo']['title'] ?? 'No Title',
-              'author': (item['volumeInfo']['authors'] != null)
-                  ? item['volumeInfo']['authors'].join(', ')
-                  : 'Unknown Author',
-              'price': '₹399',
-              'image': item['volumeInfo']['imageLinks']?['thumbnail'] ?? 'default_image_url',
-              'description': item['volumeInfo']['description'] ?? 'No description available',
-            });
-          }
-          emit(HomeScreenLoaded(books));
-        } else {
-          emit(HomeScreenError('Failed to fetch books'));
-        }
+        // Call fetchBooks without passing the limit
+        final books = await booksApi.fetchBooks(); 
+        emit(HomeScreenLoaded(books));
       } catch (e) {
-        emit(HomeScreenError(e.toString()));
+        print('Error fetching books: $e');
+        emit(HomeScreenError('Failed to fetch books: $e'));
       }
     });
 
-   on<SearchBooksEvent>((event, emit) async {
-  emit(HomeScreenLoading());
-
-  try {
-    final String apiKey = 'AIzaSyCNX90qklU7TCuozS-LoLmX4OwvSPyg9Bs'; 
-    final String url = 'https://www.googleapis.com/books/v1/volumes?q=${event.query}&maxResults=40&key=$apiKey';
-
-    final response = await http.get(Uri.parse(url));
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      final List<Map<String, String>> books = [];
-
-      for (var item in data['items']) {
-        books.add({
-          'title': item['volumeInfo']['title'] ?? 'No Title',
-          'author': (item['volumeInfo']['authors'] != null)
-              ? item['volumeInfo']['authors'].join(', ')
-              : 'Unknown Author',
-          'price': '₹399', // Google Books API does not provide book prices
-          'image': item['volumeInfo']['imageLinks']?['thumbnail'] ?? 'default_image_url',
-          'description': item['volumeInfo']['description'] ?? 'No description available',
-        });
+    on<SearchBooksEvent>((event, emit) async {
+      emit(HomeScreenLoading());
+      try {
+        final books = await _searchBooks(event.query);
+        emit(HomeScreenLoaded(books));
+      } catch (e) {
+        emit(HomeScreenError('Failed to fetch books: $e'));
       }
-      emit(HomeScreenLoaded(books));
-    } else {
-      emit(HomeScreenError('Failed to fetch books'));
-    }
-  } catch (e) {
-    emit(HomeScreenError(e.toString()));
+    });
   }
-});
 
+  Future<List<Book>> _searchBooks(String query) async {
+    final allBooks = await booksApi.fetchBooks(); // Fetch all books
+    return allBooks.where((book) => book.title.toLowerCase().contains(query.toLowerCase())).toList();
   }
 }

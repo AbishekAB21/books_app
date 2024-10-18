@@ -1,32 +1,31 @@
+import 'package:intl/intl.dart'; // Import for currency formatting
+
+// Book Model
 class Book {
+  final String id; // Add id for consistency with the API
+  final String imageUrl;
   final String title;
   final String author;
-  final String thumbnail;
-  final String price;
+  final double price; // Use double for price
+  final String description;
 
   Book({
+    required this.id,
+    required this.imageUrl,
     required this.title,
     required this.author,
-    required this.thumbnail,
     required this.price,
+    required this.description,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) {
-    final volumeInfo = json['volumeInfo'];
-    final saleInfo = json['saleInfo'];
-
     return Book(
-      title: volumeInfo['title'] ?? 'No title',
-      author:
-          (volumeInfo['authors'] != null && volumeInfo['authors'].isNotEmpty)
-              ? volumeInfo['authors'][0]
-              : 'Unknown author',
-      thumbnail: volumeInfo['imageLinks'] != null
-          ? volumeInfo['imageLinks']['thumbnail']
-          : 'No image available',
-      price: saleInfo['listPrice'] != null
-          ? '${saleInfo['listPrice']['amount']} ${saleInfo['listPrice']['currencyCode']}'
-          : 'Price not available',
+      id: json['id'],
+      imageUrl: json['coverPictureURL'], // Adjust to the correct key
+      title: json['title'],
+      author: json['authorId'], // Adjust if author is defined differently in the response
+      price: (json['price'] as num).toDouble(),
+      description: json['description'],
     );
   }
 }

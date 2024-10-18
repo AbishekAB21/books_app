@@ -1,4 +1,4 @@
-part of 'home_screen_bloc.dart';
+import 'package:meta/meta.dart';
 
 @immutable
 sealed class HomeScreenEvent {}

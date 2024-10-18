@@ -1,4 +1,6 @@
-part of 'home_screen_bloc.dart';
+// home_screen_state.dart
+import 'package:books_app/models/model.dart'; // Ensure to import the correct Book model
+import 'package:meta/meta.dart';
 
 @immutable
 abstract class HomeScreenState {}
@@ -8,7 +10,7 @@ class HomeScreenInitial extends HomeScreenState {}
 class HomeScreenLoading extends HomeScreenState {}
 
 class HomeScreenLoaded extends HomeScreenState {
-  final List<Map<String, String>> books;
+  final List<Book> books; // Use the Book type from model.dart
 
   HomeScreenLoaded(this.books);
 }
