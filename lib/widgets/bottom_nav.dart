@@ -1,5 +1,6 @@
 import 'package:books_app/screens/authors_screen.dart';
 import 'package:books_app/screens/home.dart';
+import 'package:books_app/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:books_app/bloc/bottom_nav_bloc/bottom_nav_bloc.dart';
@@ -15,12 +16,14 @@ class MainScreen extends StatelessWidget {
             if (state is BottomNavInitial) {
               return state.selectedIndex == 0 ? HomeScreen() : AuthorsScreen();
             }
-            return Container(); // Fallback if no state is matched
+            return Container(); 
           },
         ),
         bottomNavigationBar: BlocBuilder<BottomNavBloc, BottomNavState>(
           builder: (context, state) {
             return BottomNavigationBar(
+              selectedItemColor: appcolor.primaryColor,
+              backgroundColor: appcolor.backgroundColor,
               currentIndex: state is BottomNavInitial ? state.selectedIndex : 0,
               onTap: (index) {
                 context.read<BottomNavBloc>().add(SelectTabEvent(index));
