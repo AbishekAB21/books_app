@@ -50,7 +50,7 @@ class DetailsScreen extends StatelessWidget {
                 Align(
                     alignment: AlignmentDirectional.topStart,
                     child: Text(
-                      bookName!,
+                      bookName!, 
                       style: Fontstyles.HeadlineStyle2(context),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
