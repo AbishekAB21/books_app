@@ -55,13 +55,13 @@ class DetailsScreen extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     )),
-                Align(
-                    alignment: AlignmentDirectional.topStart,
-                    child: Text(
-                      "by ${authorName!}",
-                      style: Fontstyles.ContentTextStyle(context),
-                      overflow: TextOverflow.ellipsis,
-                    )),
+                // Align(
+                //     alignment: AlignmentDirectional.topStart,
+                //     child: Text(
+                //       "by ${authorName!}",
+                //       style: Fontstyles.ContentTextStyle(context),
+                //       overflow: TextOverflow.ellipsis,
+                //     )),
                 SizedBox(
                   height: 20,
                 ),
