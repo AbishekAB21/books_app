@@ -8,33 +8,37 @@ class BookBuilder extends StatelessWidget {
   final String authorName;
   final String price;
   final String desc;
-  BookBuilder(
-      {super.key,
-      required this.imageUrl,
-      required this.bookName,
-      required this.authorName,
-      required this.price,
-      required this.desc,
-      });
+  BookBuilder({
+    super.key,
+    required this.imageUrl,
+    required this.bookName,
+    required this.authorName,
+    required this.price,
+    required this.desc,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-      //  context.go("/details", extra: {
-      //     'imageUrl': imageUrl,
-      //     'bookName': bookName,
-      //     'authorName': authorName,
-      //     'price': price,
-      //     'bookdesc' : desc,
-      //   });
-      Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(
-        imageUrl: imageUrl,
-        bookName: bookName,
-        authorName: authorName,
-        price: price,
-        bookdesc: desc,
-      ),));
+        //  context.go("/details", extra: {
+        //     'imageUrl': imageUrl,
+        //     'bookName': bookName,
+        //     'authorName': authorName,
+        //     'price': price,
+        //     'bookdesc' : desc,
+        //   });
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailsScreen(
+                imageUrl: imageUrl,
+                bookName: bookName,
+                authorName: authorName,
+                price: price,
+                bookdesc: desc,
+              ),
+            ));
       },
       child: Container(
         padding: EdgeInsets.all(5),
@@ -61,9 +65,17 @@ class BookBuilder extends StatelessWidget {
                     fit: BoxFit.contain,
                     height: 100,
                     width: 150,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        "assets/no-pic.png",
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.contain,
+                      );
+                    },
                   )),
             ),
-      
+
             // Book Details
             Align(
                 alignment: AlignmentDirectional.topStart,
