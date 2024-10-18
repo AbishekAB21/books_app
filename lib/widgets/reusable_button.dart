@@ -3,7 +3,8 @@ import 'package:books_app/utils/fontstyles.dart';
 import 'package:flutter/material.dart';
 
 class ReusableButton extends StatelessWidget {
-  const ReusableButton({super.key});
+  final String title;
+  ReusableButton({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +17,11 @@ class ReusableButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Center(
-          child: Text(
-        "Add author",
-        style: Fontstyles.ButtonText2(context),
-      )),
+        child: Text(
+         title,
+          style: Fontstyles.ButtonText2(context),
+        ),
+      ),
     );
   }
 }

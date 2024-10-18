@@ -7,16 +7,22 @@ part 'authors_state.dart';
 
 class AuthorsBloc extends Bloc<AuthorsEvent, AuthorsState> {
   final BooksRepository booksRepository;
+  List<Map<String, dynamic>> authors = []; 
 
   AuthorsBloc(this.booksRepository) : super(AuthorsInitial()) {
     on<FetchAuthorsEvent>((event, emit) async {
       try {
         emit(AuthorsLoading());
-        final authors = await booksRepository.fetchAuthors(event.query);
+        authors = await booksRepository.fetchAuthors(event.query);
         emit(AuthorsLoaded(authors));
       } catch (e) {
         emit(AuthorsError("Failed to fetch authors"));
       }
+    });
+
+    on<AddAuthorEvent>((event, emit) {
+      booksRepository.addAuthor(event.name, event.description, event.dob, authors);
+      emit(AuthorsLoaded(authors)); 
     });
   }
 }

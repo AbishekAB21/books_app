@@ -1,7 +1,6 @@
 import 'package:books_app/screens/book_detail_screen.dart';
 import 'package:books_app/utils/fontstyles.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class BookBuilder extends StatelessWidget {
   final String imageUrl;
