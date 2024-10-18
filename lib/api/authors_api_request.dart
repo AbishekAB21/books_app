@@ -2,42 +2,50 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class BooksRepository {
-  final String _baseUrl = "https://www.googleapis.com/books/v1/volumes";
-  final String _apiKey = "AIzaSyAUye_9iJFjqFA6n6MUL2fVpPJz_SU3k2w"; 
+  final String _baseUrl = "https://assessment.eltglobal.in/api/authors";
 
-  // Fetching authors 
-  Future<List<Map<String, dynamic>>> fetchAuthors(String query) async {
-    final response = await http.get(Uri.parse("$_baseUrl?q=$query&key=$_apiKey"));
+  // Fetching authors from the new API (no changes)
+  Future<List<Map<String, dynamic>>> fetchAuthors() async {
+    final response = await http.get(Uri.parse(_baseUrl));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
 
-      final List<Map<String, dynamic>> authors = (data['items'] ?? [])
-          .map<Map<String, dynamic>>((book) => {
-                'title': book['volumeInfo']['title'] ?? 'No title available',
-                'author': (book['volumeInfo']['authors'] != null)
-                    ? book['volumeInfo']['authors'].join(", ")
-                    : 'Unknown Author',
-                'description': book['volumeInfo']['description'] ?? 'No description available',
+      final List<Map<String, dynamic>> authors = (data['result'] ?? [])
+          .map<Map<String, dynamic>>((author) => {
+                'id': author['id'],
+                'name': author['name'],
+                'birthdate': author['birthdate'],
+                'biography': author['biography'],
               })
           .toList();
 
       return authors;
-    } else if (response.statusCode == 429) {
-      print('Quota exceeded: ${response.body}');
-      throw Exception('Rate limit exceeded, please try again later.');
     } else {
       print(response.body);
       throw Exception("Failed to load authors");
     }
   }
 
-  // Adding new author
-  void addAuthor(String name, String description, String dob, List<Map<String, dynamic>> authors) {
-    authors.add({
-      'author': name,
-      'description': description,
-      'dob': dob,
-    });
+  // Adding new author to the server via POST request
+  Future<void> addAuthor(String name, String biography, String dob) async {
+  final response = await http.post(
+    Uri.parse(_baseUrl),
+    headers: {"Content-Type": "application/json"},
+    body: json.encode({
+      "name": name,
+      "birthdate": dob,
+      "biography": biography,
+    }),
+  );
+
+  // Check for a successful response
+  if (response.statusCode == 201) {
+    print("Author added successfully!");
+  } else {
+    print("Failed to add author: ${response.statusCode} - ${response.body}");
+    throw Exception("Failed to add author");
   }
+}
+
 }

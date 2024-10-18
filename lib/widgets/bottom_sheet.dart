@@ -20,7 +20,6 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
 
   @override
   void dispose() {
-    
     authorController.dispose();
     bioController.dispose();
     dobController.dispose();
@@ -29,62 +28,82 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BottomSheet(
-      backgroundColor: appcolor.backgroundColor,
-      onClosing: () {},
-      builder: (context) {
-        return Column(
-          children: [
-            SizedBox(height: 30),
-            Container(
-              width: double.infinity,
-              child: Column(
-                children: [
-                  Text(
-                    "Add author",
-                    style: Fontstyles.HeadlineStyle2(context),
-                  ),
-                  SizedBox(height: 5),
-                  Divider(color: appcolor.borderColor),
-                  SizedBox(height: 20),
-                  ReusableTextfield(
-                    hint: "Add new author",
-                    maxline: 1,
-                    controller: authorController,
-                  ),
-                  SizedBox(height: 10),
-                  ReusableTextfield(
-                    hint: "Biography",
-                    maxline: 5,
-                    controller: bioController,
-                  ),
-                  SizedBox(height: 10),
-                  ReusableTextfield(
-                    hint: "DOB",
-                    maxline: 1,
-                    controller: dobController,
-                  ),
-                  SizedBox(height: 30),
-                  GestureDetector(
-                    onTap: () {
-                     
-                      final name = authorController.text;
-                      final description = bioController.text;
-                      final dob = dobController.text;
-
-                      if (name.isNotEmpty && description.isNotEmpty && dob.isNotEmpty) {
-                        BlocProvider.of<AuthorsBloc>(context).add(AddAuthorEvent(name, description, dob));
-                        Navigator.pop(context);
-                      }
-                    },
-                    child: ReusableButton(title: "Add author",)
-                  )
-                ],
-              ),
-            )
-          ],
-        );
+    return BlocListener<AuthorsBloc, AuthorsState>(
+      listener: (context, state) {
+        if (state is AuthorsError) {
+          // Show error message if there's an error
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message)),
+          );
+        } else if (state is AuthorsLoaded) {
+          // Successfully added an author and the list is updated
+          Navigator.pop(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Author added successfully!")),
+          );
+        }
       },
+      child: BottomSheet(
+        backgroundColor: appcolor.backgroundColor,
+        onClosing: () {},
+        builder: (context) {
+          return Column(
+            children: [
+              SizedBox(height: 30),
+              Container(
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Text(
+                      "Add author",
+                      style: Fontstyles.HeadlineStyle2(context),
+                    ),
+                    SizedBox(height: 5),
+                    Divider(color: appcolor.borderColor),
+                    SizedBox(height: 20),
+                    ReusableTextfield(
+                      hint: "Add new author",
+                      maxline: 1,
+                      controller: authorController,
+                    ),
+                    SizedBox(height: 10),
+                    ReusableTextfield(
+                      hint: "Biography",
+                      maxline: 5,
+                      controller: bioController,
+                    ),
+                    SizedBox(height: 10),
+                    ReusableTextfield(
+                      hint: "DOB",
+                      maxline: 1,
+                      controller: dobController,
+                    ),
+                    SizedBox(height: 30),
+                    GestureDetector(
+                      onTap: () {
+                        final name = authorController.text;
+                        final description = bioController.text;
+                        final dob = dobController.text;
+
+                        if (name.isNotEmpty && description.isNotEmpty && dob.isNotEmpty) {
+                          // Add the author
+                          BlocProvider.of<AuthorsBloc>(context).add(AddAuthorEvent(name, description, dob));
+                        } else {
+                          // Show an error message if fields are empty
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Please fill in all fields.")),
+                          );
+                        }
+                      },
+                      child: ReusableButton(title: "Add author"),
+                    )
+                  ],
+                ),
+              )
+            ],
+          );
+        },
+      ),
     );
   }
 }

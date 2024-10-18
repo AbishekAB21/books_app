@@ -18,7 +18,7 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<AuthorsBloc>(context).add(FetchAuthorsEvent('Flutter'));
+    BlocProvider.of<AuthorsBloc>(context).add(FetchAuthorsEvent());
   }
 
   @override
@@ -38,9 +38,9 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
               itemBuilder: (context, index) {
                 final author = state.authors[index];
                 return AuthorBuilder(
-                  authorName: author['author'] ?? 'Unknown Author',
-                  description:
-                      author['description'] ?? 'No description available',
+                  // Updated field names based on new API
+                  authorName: author['name'] ?? 'Unknown Author',
+                  description: author['biography'] ?? 'No biography available',
                 );
               },
             );
@@ -65,7 +65,10 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
             builder: (context) {
               return BottomSheetWidget();
             },
-          );
+          ).whenComplete(() {
+            // Fetch the authors again after adding a new one
+            BlocProvider.of<AuthorsBloc>(context).add(FetchAuthorsEvent());
+          });
         },
       ),
     );
