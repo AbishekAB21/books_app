@@ -3,10 +3,18 @@ import 'package:books_app/utils/fontstyles.dart';
 import 'package:flutter/material.dart';
 
 class AuthorBuilder extends StatelessWidget {
+  final String authorId; // New parameter for author ID
   final String authorName;
   final String description;
+  final Function(String) onDelete; // Function to handle delete action
 
-  const AuthorBuilder({super.key, required this.authorName, required this.description});
+  const AuthorBuilder({
+    super.key,
+    required this.authorId,
+    required this.authorName,
+    required this.description,
+    required this.onDelete, // Add required delete function
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +32,12 @@ class AuthorBuilder extends StatelessWidget {
           children: [
             CircleAvatar(
               backgroundColor: appcolor.primaryColor,
-             // backgroundImage: AssetImage("assets/empty-profile-pic.png"),
-             child: Text(firstLetter, style: Fontstyles.ButtonText1(context),),
+              child: Text(
+                firstLetter,
+                style: Fontstyles.ButtonText1(context),
+              ),
             ),
-            SizedBox(
-              width: 15,
-            ),
+            SizedBox(width: 15),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,9 +46,7 @@ class AuthorBuilder extends StatelessWidget {
                     authorName,
                     style: Fontstyles.ContentTextStyle(context),
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
+                  SizedBox(height: 5),
                   Text(
                     description,
                     overflow: TextOverflow.ellipsis,
@@ -49,7 +55,14 @@ class AuthorBuilder extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            IconButton(
+              onPressed: () => onDelete(authorId), // Call delete function
+              icon: Icon(
+                Icons.delete,
+                color: appcolor.errorColor,
+              ),
+            ),
           ],
         ),
       ),

@@ -21,6 +21,11 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
     BlocProvider.of<AuthorsBloc>(context).add(FetchAuthorsEvent());
   }
 
+  void deleteAuthor(String authorId) {
+    // Trigger delete author event in the AuthorsBloc
+    BlocProvider.of<AuthorsBloc>(context).add(DeleteAuthorEvent(authorId));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,9 +43,10 @@ class _AuthorsScreenState extends State<AuthorsScreen> {
               itemBuilder: (context, index) {
                 final author = state.authors[index];
                 return AuthorBuilder(
-                  // Updated field names based on new API
+                  authorId: author['id'].toString(), // Pass author ID
                   authorName: author['name'] ?? 'Unknown Author',
                   description: author['biography'] ?? 'No biography available',
+                  onDelete: deleteAuthor, // Pass delete function
                 );
               },
             );
