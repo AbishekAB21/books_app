@@ -19,14 +19,18 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: AlignmentDirectional.topEnd,
-                colors: [
-                  Colors.amber,
-                  Colors.orange,
-                ],
+          Material(
+            elevation: 10,
+            borderRadius: BorderRadius.circular(20),
+            child: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: AlignmentDirectional.topEnd,
+                  colors: [
+                    Colors.amber,
+                    Colors.orange,
+                  ],
+                ),
               ),
             ),
           ),
