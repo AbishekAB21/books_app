@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:books_app/api/books_api_request.dart';
 import 'package:books_app/bloc/home_screen_bloc/home_screen_event.dart';
 import 'package:books_app/bloc/home_screen_bloc/home_screen_state.dart';
-import 'package:books_app/models/model.dart'; 
+import 'package:books_app/models/model.dart';
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   final BooksApi booksApi;
@@ -11,7 +11,6 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     on<FetchBooksEvent>((event, emit) async {
       emit(HomeScreenLoading());
       try {
-        
         final books = await booksApi.fetchBooks(); 
         emit(HomeScreenLoaded(books));
       } catch (e) {
